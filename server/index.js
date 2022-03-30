@@ -3,6 +3,8 @@ const { json, urlencoded } = express;
 const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user.model");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 // app
 const app = express();
@@ -32,15 +34,47 @@ app.get("/test", (req, res) => {
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
   try {
+    const newPassword = await bcrypt.hash(req.body.password, 10);
     await User.create({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: newPassword,
     });
     res.json({ status: "ok" });
   } catch (err) {
     console.log(err);
     res.json({ status: "error", error: "Duplicate Email" });
+  }
+});
+
+//Login API
+app.post("/api/login", async (req, res) => {
+  try {
+    const user = await User.findOne({
+      email: req.body.email,
+    });
+    if (!user) {
+      return res.json({ error: "Email not valid" });
+    }
+    const isPasswordValid = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (isPasswordValid) {
+      const token = jwt.sign(
+        {
+          name: user.name,
+          email: user.email,
+        },
+        "secret123"
+      );
+
+      return res.json({ status: "ok", user: token });
+    } else {
+      return res.json({ error: "Invalid User Credentials" });
+    }
+  } catch (err) {
+    console.log(err);
   }
 });
 

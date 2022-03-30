@@ -1,24 +1,26 @@
+import React from "react";
 import { useState, useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-//importing api 
-import {getTest} from './api/test'
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Signup from "./pages/Signup";
 
+// //importing api
+// import { getTest } from "./api/test";
 
-
-function App() {
-  const [data, setData] = useState("Hello friend!");
-  useEffect(()=>{
-    getTest()
-    .then((res)=>{
-      console.log(res);
-      setData(res.message)
-    })
-  })
+const App = () => {
   return (
-    <div className="App">
-      <h1> {data}</h1>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" exact element={<Signup />} />
+          <Route path="/login" exact element={<Login />} />
+          <Route path="/dashboard" exact element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
