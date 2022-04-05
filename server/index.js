@@ -33,12 +33,16 @@ app.get("/test", (req, res) => {
 //SignUP API
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
+
   try {
     const newPassword = await bcrypt.hash(req.body.password, 10);
     await User.create({
       name: req.body.name,
       email: req.body.email,
       password: newPassword,
+      phoneno: req.body.phoneno,
+      role: req.body.role,
+      course: req.body.course
     });
     res.json({ status: "ok" });
   } catch (err) {
@@ -60,6 +64,7 @@ app.post("/api/login", async (req, res) => {
       req.body.password,
       user.password
     );
+    console.log(req.body.email + "\n" + req.body.password)
     if (isPasswordValid) {
       const token = jwt.sign(
         {

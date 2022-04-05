@@ -40,6 +40,7 @@ export default function SignIn() {
   async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    
     setEmail(data.get('email').toString());
     setPassword(data.get('password').toString());
 
