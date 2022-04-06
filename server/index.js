@@ -42,7 +42,7 @@ app.post("/api/register", async (req, res) => {
       password: newPassword,
       phoneno: req.body.phoneno,
       role: req.body.role,
-      course: req.body.course
+      course: req.body.course,
     });
     res.json({ status: "ok" });
   } catch (err) {
@@ -64,12 +64,13 @@ app.post("/api/login", async (req, res) => {
       req.body.password,
       user.password
     );
-    console.log(req.body.email + "\n" + req.body.password)
+    console.log(req.body.email + "\n" + req.body.password);
     if (isPasswordValid) {
       const token = jwt.sign(
         {
           name: user.name,
           email: user.email,
+          role: user.role,
         },
         "secret123"
       );
