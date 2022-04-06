@@ -169,7 +169,7 @@ export default function SignUp() {
                     label="Role"
                     onChange={updateRole}
                   >
-                        <MenuItem value="Admin">Admin</MenuItem>
+//                       <MenuItem value="Admin">Admin</MenuItem> 
                         <MenuItem value="Student">Student</MenuItem>
                         <MenuItem value="EventManager">Event Manager</MenuItem>
                   </Select>
