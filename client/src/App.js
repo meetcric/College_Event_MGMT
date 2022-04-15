@@ -1,22 +1,26 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import SignIn from "./components/signin/SignIn";
 import SignUp from "./components/signup/SignUp";
-import Dashboard from "./components/dashboard/Dashboard";
+import EventManagerDashboard from "./pages/EventManagerDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import StudentDashboard from "./pages/StudentDashboard";
 
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
           <Route path="/SignIn" exact element={<SignIn />} />
           <Route path="/SignUp" exact element={<SignUp />} />
-          <Route path="/Dashboard" exact element={<Dashboard />} />
+          <Route path="/Dashboard" exact element={<EventManagerDashboard />} />
           <Route path="/" exact element={<SignUp />} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <EventManagerDashboard />
+      {/* <AdminDashboard /> */}
+      {/* <StudentDashboard /> */}
     </div>
   );
 };

@@ -3,6 +3,7 @@ const { json, urlencoded } = express;
 const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user.model");
+const EventR = require("./models/eventRequests");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -32,7 +33,7 @@ app.get("/test", (req, res) => {
 
 //SignUP API
 app.post("/api/register", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   try {
     const newPassword = await bcrypt.hash(req.body.password, 10);
@@ -82,6 +83,39 @@ app.post("/api/login", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+
+//EventManager APIs
+app.post("/api/requestEvent", async(req, res) => {
+  try {
+    console.log(req.body);
+    await EventR.create({
+      name: req.body.name,
+      eventtype: req.body.eventType,
+      maxparticipation: req.body.maxParticipation,
+      allowedusers: req.body.allowedUserGroups,
+      datetime: req.body.datetime,
+      venue: req.body.venue,
+      otherinfo: req.body.otherInfo,
+      addedby: req.body.addedby
+    });
+    res.json({ status: "ok" });
+  } catch (err) {
+    console.log(err);
+    res.json({ status: "error"});
+  }  
+});
+
+app.get("/api/showPendingEvents/:user", async(req, res) => {
+    var data;
+    EventR.find({"addedby":req.params.user}, function(err, docs) {
+      data = docs;
+      console.log(docs);
+      res.send(docs);
+    });
+    // console.log(data);
+    // console.log("\n\n\n\n\n\ndone\n\n\\n\n\n\n\n");
 });
 
 // port
