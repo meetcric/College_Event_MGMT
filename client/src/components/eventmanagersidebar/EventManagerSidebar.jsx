@@ -54,7 +54,7 @@ export default function Sidebar() {
                 Pending Events
               </li>
             </Link>
-            <Link to="/products" className="link">
+            <Link to="/EMApprovedEvents" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
                 Approved Events

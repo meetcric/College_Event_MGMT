@@ -47,13 +47,13 @@ export default function AdminSidebar() {
                 Users
               </li>
             </Link>
-            <Link to="/products" className="link">
+            <Link to="/adminPendingEvents" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
                 Approve Events
               </li>
             </Link>
-            <Link to="/products" className="link">
+            <Link to="/AllEvents" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
                 All Events

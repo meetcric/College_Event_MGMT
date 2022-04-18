@@ -11,6 +11,7 @@ import ProductList from "./productList/ProductList";
 import Product from "./product/Product";
 import NewEvent from "./newEvent/NewEvent";
 import PendingEventList from "./pendingEventList/pendingEventList";
+import EMapprovedEvents from "./EMapprovedEvents/EMapprovedEvents";
 
 function EventManagerDashboard() {
   return (
@@ -31,8 +32,8 @@ function EventManagerDashboard() {
           <Route path="/newUser">
             <NewUser />
           </Route>
-          <Route path="/products">
-            <ProductList />
+          <Route path="/EMApprovedEvents">
+            <EMapprovedEvents />
           </Route>
           <Route path="/product/:productId">
             <Product />

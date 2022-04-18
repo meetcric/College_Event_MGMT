@@ -6,11 +6,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./userList/UserList";
 import User from "./user/User";
 import NewUser from "./newUser/NewUser";
-import ProductList from "./productList/ProductList";
 import Product from "./product/Product";
 import NewEvent from "./newEvent/NewEvent";
+import AdminPendingEvents from "./adminPendingEvents/adminPendingEvents";
+import AdminAllEvents from "./adminAllEvents/adminAllEvents";
 
-function EventManagerDashboard() {
+function AdminDashboard() {
   return (
     <Router>
       <Topbar />
@@ -29,11 +30,11 @@ function EventManagerDashboard() {
           <Route path="/newUser">
             <NewUser />
           </Route>
-          <Route path="/products">
-            <ProductList />
+          <Route path="/adminPendingEvents">
+            <AdminPendingEvents />
           </Route>
-          <Route path="/product/:productId">
-            <Product />
+          <Route path="/AllEvents">
+            <AdminAllEvents />
           </Route>
           <Route path="/newEvent">
             <NewEvent />
@@ -44,4 +45,4 @@ function EventManagerDashboard() {
   );
 }
 
-export default EventManagerDashboard;
+export default AdminDashboard;

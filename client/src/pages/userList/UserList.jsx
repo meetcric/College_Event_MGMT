@@ -3,39 +3,42 @@ import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function UserList() {
-  const [data, setData] = useState(userRows);
+  const [tableData, setTableData] = useState([]);
+  
+  useEffect(() => {
+    fetch("http://localhost:8000/api/allUserList")
+    .then((data) => data.json())
+    .then((data) => setTableData(data));
+  })
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    // setData(data.filter((item) => item.id !== id));
   };
   
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 90 },
     {
-      field: "user",
-      headerName: "User",
+      field: "name",
+      headerName: "Name",
       width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
-          </div>
-        );
-      },
     },
     { field: "email", headerName: "Email", width: 200 },
     {
-      field: "status",
-      headerName: "Status",
+      field: "phoneno",
+      headerName: "Phone No.",
       width: 120,
     },
     {
-      field: "transaction",
-      headerName: "Transaction Volume",
+      field: "role",
+      headerName: "Role",
+      width: 160,
+    },
+    {
+      field: "course",
+      headerName: "Course",
       width: 160,
     },
     {
@@ -61,7 +64,8 @@ export default function UserList() {
   return (
     <div className="userList">
       <DataGrid
-        rows={data}
+        getRowId={(row) => row._id}
+        rows={tableData}
         disableSelectionOnClick
         columns={columns}
         pageSize={8}

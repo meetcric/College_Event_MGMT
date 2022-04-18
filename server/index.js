@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user.model");
 const EventR = require("./models/eventRequests");
+const EventA = require("./models/approvedEvents");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -111,13 +112,86 @@ app.get("/api/showPendingEvents/:user", async(req, res) => {
     var data;
     EventR.find({"addedby":req.params.user}, function(err, docs) {
       data = docs;
-      console.log(docs);
-      res.send(docs);
+      // console.log(typeof(docs));
+      res.json(docs);
     });
-    // console.log(data);
-    // console.log("\n\n\n\n\n\ndone\n\n\\n\n\n\n\n");
 });
 
+
+app.get("/api/showAllPendingEvents/", async(req, res) => {
+  var data;
+  EventR.find({}, function(err, docs) {
+    data = docs;
+    // console.log(typeof(docs));
+    res.json(docs);
+  });
+});
+
+app.post("/api/approveEvent/:id", async(req, res) => {
+  var id = req.params.id;
+  var event_request;
+
+  console.log(id);
+  event_request = await EventR.findOne({_id : id});
+  
+  try {
+    var new_event = new EventA(event_request);
+    new_event._id = mongoose.Types.ObjectId();
+    new_event.isNew=true;
+    new_event.save();
+    // console.log(typeof(event_request));
+    // await EventA.create(event_request);
+  } catch(err) {
+    res.status(400).send();
+    console.log(err);
+  }
+
+  try {
+  await EventR.deleteOne({_id: id});
+  }
+  catch(err) {
+    res.status(400).send();
+    console.log(err);
+  }
+
+  res.status(200).send();
+})
+
+app.post("/api/rejectEvent/:id", async(req, res) => {
+  var id = req.params.id;
+  try {
+    await EventR.deleteOne({_id: id});
+    }
+    catch(err) {
+      res.status(400).send();
+      console.log(err);
+    }
+    res.status(200).send();
+
+})
+
+app.get("/api/showAllEMEvents/:user", async(req, res) => {
+  var user = req.params.user;
+  EventA.find({addedby:user}, function(err, docs) {
+    // console.log(docs);
+    res.json(docs);
+  });
+})
+
+app.get("/api/allEvents", async(req, res) => {
+  EventA.find({}, function(err, docs) {
+    // console.log(docs);
+    res.json(docs);
+  });
+})
+
+app.get("/api/allUserList", async(req, res) => {
+  User.find({}, function(err, docs) {
+    data = docs;
+    // console.log(typeof(docs));
+    res.json(docs);
+  });  
+})
 // port
 const port = process.env.PORT || 8000;
 
