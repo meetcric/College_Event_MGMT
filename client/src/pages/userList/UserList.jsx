@@ -4,28 +4,31 @@ import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+import axios from "axios";
 export default function UserList() {
   const [tableData, setTableData] = useState([]);
-  
+
   useEffect(() => {
     fetch("http://localhost:8000/api/allUserList")
-    .then((data) => data.json())
-    .then((data) => setTableData(data));
-  })
+      .then((data) => data.json())
+      .then((data) => setTableData(data));
+  });
 
   const handleDelete = (id) => {
-    // setData(data.filter((item) => item.id !== id));
+    axios.post("http://localhost:8000/api/deleteUser/" + id);
   };
-  
+  // const enableEdit = (id) => {
+  //   console.log(id);
+  // };
+
   const columns = [
-    { field: "_id", headerName: "ID", width: 90 },
-    {
-      field: "name",
-      headerName: "Name",
-      width: 200,
-    },
-    { field: "email", headerName: "Email", width: 200 },
+    // { field: "_id", headerName: "ID", width: 90 },
+    // {
+    //   field: "name",
+    //   headerName: "Name",
+    //   width: 200,
+    // },
+    { field: "email", headerName: "Email", width: 200, editable: true },
     {
       field: "phoneno",
       headerName: "Phone No.",
@@ -48,12 +51,17 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row.id}>
-              <button className="userListEdit">Edit</button>
-            </Link>
+            {/* <Link to={"/user/" + params.row.id}> */}
+            {/* <button
+              className="userListEdit"
+              onClick={() => enableEdit(params.row)}
+            >
+              Edit
+            </button> */}
+            {/* </Link> */}
             <DeleteOutline
               className="userListDelete"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete(params.row._id)}
             />
           </>
         );
@@ -66,10 +74,8 @@ export default function UserList() {
       <DataGrid
         getRowId={(row) => row._id}
         rows={tableData}
-        disableSelectionOnClick
         columns={columns}
         pageSize={8}
-        checkboxSelection
       />
     </div>
   );

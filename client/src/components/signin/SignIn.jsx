@@ -50,6 +50,8 @@ export default function SignIn() {
       email: email,
       password: password,
     });
+    console.log(user);
+
     const res = await axios.post("http://localhost:8000/api/login", user, {
       headers: {
         // Overwrite Axios's automatically set Content-Type
