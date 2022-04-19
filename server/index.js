@@ -181,7 +181,7 @@ app.get("/api/allEvents", async (req, res) => {
 });
 
 app.get("/api/allUserList", async (req, res) => {
-  User.find({}, function (err, docs) {
+  User.find({ role: { $ne: "Admin" } }, function (err, docs) {
     data = docs;
     // console.log(typeof(docs));
     res.json(docs);

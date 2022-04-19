@@ -69,6 +69,7 @@ export default function AdminAllEvents() {
               color="error"
               className="userListEdit"
               variant="outlined"
+              color="error"
               onClick={() => deleteEvent(params.row._id)}
             >
               Reject

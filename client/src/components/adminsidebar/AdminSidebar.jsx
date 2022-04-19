@@ -50,7 +50,7 @@ export default function AdminSidebar() {
             <Link to="/AdminDashboard/adminPendingEvents" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
-                Approve Events
+                Pending Events
               </li>
             </Link>
             <Link to="/AdminDashboard/AllEvents" className="link">
