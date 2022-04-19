@@ -10,13 +10,7 @@ import UserList from "./pages/userList/UserList";
 import { Button } from "@mui/material";
 
 const App = () => {
-  function admindash() {
-    <AdminDashboard />;
-  }
 
-  function EMDashboard() {
-    <EventManagerDashboard />;
-  }
   return (
     <div>
       <BrowserRouter>

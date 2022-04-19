@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./userList/UserList";
 import User from "./user/User";
 import NewUser from "./newUser/NewUser";
-import Product from "./product/Product";
 import NewEvent from "./newEvent/NewEvent";
 import AdminPendingEvents from "./adminPendingEvents/adminPendingEvents";
 import AdminAllEvents from "./adminAllEvents/adminAllEvents";
@@ -19,7 +18,7 @@ function AdminDashboard() {
         <AdminSidebar />
         <Routes>
           <Route exact path="/">
-            <Home />
+            <UserList />
           </Route>
           <Route path="/users">
             <UserList />

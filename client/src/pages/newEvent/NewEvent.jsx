@@ -1,9 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 import "./newEvent.css";
 
 export default function NewEvent() {
+  const user = jwt_decode(localStorage.getItem("token"))["name"]; 
+  console.log(user);
+    // const user = "shreyank";
   const [name, setName] = useState("");
   const [eventType, setEventType] = useState("research-talk");
   const [maxParticipation, setMaxParticipation] = useState("100");
@@ -11,7 +15,7 @@ export default function NewEvent() {
   const [datetime, setDateTime] = useState("");
   const [venue, setVenue] = useState("");
   const [otherInfo, setOtherInfo] = useState("");
-  const [addedby, setAddedBy] = useState("shreyank"); //update it accordingly
+  const [addedby, setAddedBy] = useState(user); //update it accordingly
 
   async function handleSubmit(event) {
     event.preventDefault();
