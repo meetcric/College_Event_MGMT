@@ -163,20 +163,7 @@ app.post("/api/approveEvent/:id", async(req, res) => {
   }
 
   res.status(200).send();
-<<<<<<< HEAD
-})
 
-app.post("/api/rejectEvent/:id", async(req, res) => {
-  var id = req.params.id;
-  try {
-    await EventR.deleteOne({_id: id});
-    }
-    catch(err) {
-      res.status(400).send();
-      console.log(err);
-    }
-    res.status(200).send();
-=======
 });
 //Delete pending Event
 app.post("/api/rejectEvent/:id", async (req, res) => {
@@ -189,9 +176,8 @@ app.post("/api/rejectEvent/:id", async (req, res) => {
   }
   res.json({ status: "success" });
 });
->>>>>>> d64dbcfcb140dbf639fda9f6ed9a12eb4c739578
 
-})
+
 
 app.get("/api/showAllEMEvents/:user", async(req, res) => {
   var user = req.params.user;
