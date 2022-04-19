@@ -5,7 +5,7 @@ import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import jwt_decode from "jwt-decode";
 
 // const a = [ {
 //   addedby: "shreyank",
@@ -23,7 +23,7 @@ import axios from "axios";
 export default function PendingEventList() {
   
   const [tableData, setTableData] = useState([]);
-  const user = "shreyank"   //change
+  const user = jwt_decode(localStorage.getItem("token"))["name"];   //change
   var logs;
 
   // async function getData() { 

@@ -14,7 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 function Copyright(props) {
@@ -67,9 +67,10 @@ export default function SignIn() {
       if (role == "Admin") {
         navigate("/AdminDashboard");
       } else if (role == "Student") {
-        navigate("StudentDashboard");
+        navigate("/StudentDashboard");
       } else {
-        navigate("EventDashboard");
+        navigate("/EventDashboard");
+        // <Navigate to="/EventDashboard" />
       }
     } else {
       alert("Invalid Credentials");
