@@ -17,6 +17,11 @@ export default function StudentEvents() {
     .then((data) => setTableData(data));
   })
   
+  function participate(id) {
+    var res = axios.get("http://localhost:8000/api/participate/" + id + "/" + email);  
+      alert("participated");
+  }
+
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
@@ -58,7 +63,7 @@ export default function StudentEvents() {
       renderCell: (params) => {
         return (
           <>
-              <button className="userListEdit">Participate</button>
+              <button className="userListEdit" onClick={() => participate(params.row._id)}>Participate</button>
               {/* <button className="userListEdit" onClick={() => rejectEvent(params.row._id)}>Reject</button> */}
           </>
         );
