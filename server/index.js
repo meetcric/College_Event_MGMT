@@ -153,7 +153,7 @@ app.post("/api/approveEvent/:id", async (req, res) => {
 
   res.status(200).send();
 });
-
+//Delete pending Event
 app.post("/api/rejectEvent/:id", async (req, res) => {
   var id = req.params.id;
   try {
@@ -162,7 +162,7 @@ app.post("/api/rejectEvent/:id", async (req, res) => {
     res.status(400).send();
     console.log(err);
   }
-  res.status(200).send();
+  res.json({ status: "success" });
 });
 
 app.get("/api/showAllEMEvents/:user", async (req, res) => {
