@@ -1,7 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-
+import { MultiSelect } from "react-multi-select-component";
+import Select from 'react-select';
 import "./newEvent.css";
 
 export default function NewEvent() {
@@ -16,6 +17,15 @@ export default function NewEvent() {
   const [venue, setVenue] = useState("");
   const [otherInfo, setOtherInfo] = useState("");
   const [addedby, setAddedBy] = useState(user); //update it accordingly
+
+  const data = [
+    { label: "M.Tech", value: "M.Tech" },
+    { label: "Integrated M.Tech", value: "IM.tech" },
+    { label: "MS", value: "MS" },
+    { label: "Ph.D", value: "Ph.D" },
+    { label: "Digital Society", value: "DigiSoc"},
+    { label: "All", value: "all"},
+  ];
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -33,6 +43,7 @@ export default function NewEvent() {
 
     console.log(eventR);
 
+
     const res = await axios.post("http://localhost:8000/api/requestEvent", eventR, {
       headers: {
         // Overwrite Axios's automatically set Content-Type
@@ -46,7 +57,9 @@ export default function NewEvent() {
     }
   }
 
-
+  const handleChange = (e) => {
+    setAllowedUserGroups(Array.isArray(e) ? e.map(x => x.value) : []);
+  }
   return (
     <div className="newEvent">
       <h1 className="addProductTitle">New Event</h1>
@@ -69,15 +82,30 @@ export default function NewEvent() {
           <input type="text" value={maxParticipation} onChange={(e) => setMaxParticipation(e.target.value)} placeholder="123" />
         </div>
         <div className="addProductItem">
-          <label>Allowed User Groups</label>
-          <select name="active" id="active" multiple  value={allowedUserGroups} onChange={(e) => setAllowedUserGroups(e.target.value)}>
+           <label>Allowed User Groups</label>
+          { /*<select name="active" id="active" multiple  value={allowedUserGroups} onChange={(e) => setAllowedUserGroups([e.target.value])}>
             <option value="M.Tech">M.Tech</option>
             <option value="IM.tech">Integrated M.Tech</option>
             <option value="MS">MS</option>
             <option value="DigiSoc">Digital Society</option>
             <option value="Ph.D">Ph.D</option>
             <option value="Other">Other</option>
-          </select>
+          </select> */}
+                {/* <MultiSelect
+                  options={options}
+                  value={allowedUserGroups}
+                  onChange={setAllowedUserGroups}
+                  labelledBy="Select"
+                /> */}
+                <Select
+                  className="dropdown"
+                  placeholder="Select Option"
+                  value={data.filter(obj => allowedUserGroups.includes(obj.value))} // set selected values
+                  options={data} // set list of the data
+                  onChange={handleChange} // assign onChange function
+                  isMulti
+                  isClearable
+                />
         </div>
         <div className="addProductItem">
           <label>Date and Time</label>

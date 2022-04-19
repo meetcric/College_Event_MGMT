@@ -21,7 +21,7 @@ function EventManagerDashboard() {
         <EventManagerSidebar />
         <Routes>
           <Route exact path="/">
-          <NewEvent />
+            <NewEvent />
           </Route>
           <Route path="/pendingEventList">
             <PendingEventList />
