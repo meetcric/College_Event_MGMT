@@ -1,26 +1,29 @@
 import "./adminAllEvents.css";
 import { DataGrid } from "@material-ui/data-grid";
-import { CollectionsOutlined, ContactSupportOutlined, DeleteOutline } from "@material-ui/icons";
+import {
+  CollectionsOutlined,
+  ContactSupportOutlined,
+  DeleteOutline,
+} from "@material-ui/icons";
 import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import Button from "@mui/material/Button";
 
 export default function AdminAllEvents() {
-  
   const [tableData, setTableData] = useState([]);
-  
+
   useEffect(() => {
     fetch("http://localhost:8000/api/allEvents/")
-    .then((data) => data.json())
-    .then((data) => setTableData(data));
-  })
-  
-  const handleDelete = (id) => {
-    // setData(data.filter((item) => item.id !== id));
+      .then((data) => data.json())
+      .then((data) => setTableData(data));
+  });
+
+  const deleteEvent = (id) => {
+    axios.post("http://localhost:8000/api/deleteAprEvent/" + id);
   };
-  
+
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
@@ -55,19 +58,25 @@ export default function AdminAllEvents() {
       headerName: "Other Info",
       width: 160,
     },
-    // {
-    //   field: "action",
-    //   headerName: "Action",
-    //   width: 150,
-    //   renderCell: (params) => {
-    //     return (
-    //       <>
-    //           <button className="userListEdit" onClick={() => approveEvent(params.row._id)}>Approve</button>
-    //           <button className="userListEdit" onClick={() => rejectEvent(params.row._id)}>Reject</button>
-    //       </>
-    //     );
-    //   },
-    // },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <>
+            <Button
+              color="error"
+              className="userListEdit"
+              variant="outlined"
+              onClick={() => deleteEvent(params.row._id)}
+            >
+              Reject
+            </Button>
+          </>
+        );
+      },
+    },
   ];
 
   return (
