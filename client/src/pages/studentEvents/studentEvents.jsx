@@ -5,18 +5,17 @@ import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import jwt_decode from "jwt-decode";
 
 export default function StudentEvents() {
   
   const [tableData, setTableData] = useState([]);
-  
+  const email =  jwt_decode(localStorage.getItem("token"))["email"];
   useEffect(() => {
-    fetch("http://localhost:8000/api/allEvents/")
+    fetch("http://localhost:8000/api/showStudentsEvents/" + email)
     .then((data) => data.json())
     .then((data) => setTableData(data));
   })
-  
   
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
