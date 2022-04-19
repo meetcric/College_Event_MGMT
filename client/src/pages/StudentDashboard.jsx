@@ -9,8 +9,9 @@ import NewUser from "./newUser/NewUser";
 import ProductList from "./productList/ProductList";
 import Product from "./product/Product";
 import NewEvent from "./newEvent/NewEvent";
+import StudentEvents from "./studentEvents/studentEvents";
 
-function EventManagerDashboard() {
+function StudentDashboard() {
   return (
     <div>
       <Topbar />
@@ -29,8 +30,8 @@ function EventManagerDashboard() {
           <Route path="/newUser">
             <NewUser />
           </Route>
-          <Route path="/products">
-            <ProductList />
+          <Route path="/allEvents">
+            <StudentEvents />
           </Route>
           <Route path="/product/:productId">
             <Product />
@@ -44,4 +45,4 @@ function EventManagerDashboard() {
   );
 }
 
-export default EventManagerDashboard;
+export default StudentDashboard;
