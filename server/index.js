@@ -86,9 +86,8 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-
 //EventManager APIs
-app.post("/api/requestEvent", async(req, res) => {
+app.post("/api/requestEvent", async (req, res) => {
   try {
     console.log(req.body);
     await EventR.create({
@@ -99,106 +98,108 @@ app.post("/api/requestEvent", async(req, res) => {
       datetime: req.body.datetime,
       venue: req.body.venue,
       otherinfo: req.body.otherInfo,
-      addedby: req.body.addedby
+      addedby: req.body.addedby,
     });
     res.json({ status: "ok" });
   } catch (err) {
     console.log(err);
-    res.json({ status: "error"});
-  }  
+    res.json({ status: "error" });
+  }
 });
 
-app.get("/api/showPendingEvents/:user", async(req, res) => {
-    var data;
-    EventR.find({"addedby":req.params.user}, function(err, docs) {
-      data = docs;
-      // console.log(typeof(docs));
-      res.json(docs);
-    });
-});
-
-
-app.get("/api/showAllPendingEvents/", async(req, res) => {
+app.get("/api/showPendingEvents/:user", async (req, res) => {
   var data;
-  EventR.find({}, function(err, docs) {
+  EventR.find({ addedby: req.params.user }, function (err, docs) {
     data = docs;
     // console.log(typeof(docs));
     res.json(docs);
   });
 });
 
-app.post("/api/approveEvent/:id", async(req, res) => {
+app.get("/api/showAllPendingEvents/", async (req, res) => {
+  var data;
+  EventR.find({}, function (err, docs) {
+    data = docs;
+    // console.log(typeof(docs));
+    res.json(docs);
+  });
+});
+
+app.post("/api/approveEvent/:id", async (req, res) => {
   var id = req.params.id;
   var event_request;
 
   console.log(id);
-  event_request = await EventR.findOne({_id : id});
-  
+  event_request = await EventR.findOne({ _id: id });
+
   try {
     var new_event = new EventA(event_request);
     new_event._id = mongoose.Types.ObjectId();
-    new_event.isNew=true;
+    new_event.isNew = true;
     new_event.save();
     // console.log(typeof(event_request));
     // await EventA.create(event_request);
-  } catch(err) {
+  } catch (err) {
     res.status(400).send();
     console.log(err);
   }
 
   try {
-  await EventR.deleteOne({_id: id});
-  }
-  catch(err) {
+    await EventR.deleteOne({ _id: id });
+  } catch (err) {
     res.status(400).send();
     console.log(err);
   }
 
   res.status(200).send();
-})
+});
 
-app.post("/api/rejectEvent/:id", async(req, res) => {
+app.post("/api/rejectEvent/:id", async (req, res) => {
   var id = req.params.id;
   try {
-    await EventR.deleteOne({_id: id});
-    }
-    catch(err) {
-      res.status(400).send();
-      console.log(err);
-    }
-    res.status(200).send();
+    await EventR.deleteOne({ _id: id });
+  } catch (err) {
+    res.status(400).send();
+    console.log(err);
+  }
+  res.status(200).send();
+});
 
-})
-
-app.get("/api/showAllEMEvents/:user", async(req, res) => {
+app.get("/api/showAllEMEvents/:user", async (req, res) => {
   var user = req.params.user;
-  EventA.find({addedby:user}, function(err, docs) {
+  EventA.find({ addedby: user }, function (err, docs) {
     // console.log(docs);
     res.json(docs);
   });
-})
+});
 
-app.get("/api/allEvents", async(req, res) => {
-  EventA.find({}, function(err, docs) {
+app.get("/api/allEvents", async (req, res) => {
+  EventA.find({}, function (err, docs) {
     // console.log(docs);
     res.json(docs);
   });
-})
+});
 
-app.get("/api/allUserList", async(req, res) => {
-  User.find({}, function(err, docs) {
+app.get("/api/allUserList", async (req, res) => {
+  User.find({ role: { $ne: "Admin" } }, function (err, docs) {
     data = docs;
     // console.log(typeof(docs));
     res.json(docs);
-  });  
-})
+  });
+});
 
-app.get("/api/showStudentsEvents/:email", async(req, res) => {
-  const user_details = await User.findOne({email : req.params.email});
-  EventA.find({maxparticipation : {$gt : 0}, allowedusers: {$in : user_details.course}}, function(err, docs) {
-    res.json(docs);
-  })
-})
+app.get("/api/showStudentsEvents/:email", async (req, res) => {
+  const user_details = await User.findOne({ email: req.params.email });
+  EventA.find(
+    {
+      maxparticipation: { $gt: 0 },
+      allowedusers: { $in: user_details.course },
+    },
+    function (err, docs) {
+      res.json(docs);
+    }
+  );
+});
 // port
 const port = process.env.PORT || 8000;
 
@@ -206,3 +207,27 @@ const port = process.env.PORT || 8000;
 const server = app.listen(port, () =>
   console.log(`Server is running on port ${port}`)
 );
+
+//DeleteUserByid
+app.post("/api/deleteUser/:id", async (req, res) => {
+  var id = req.params.id;
+  try {
+    await User.deleteOne({ _id: id });
+  } catch (err) {
+    res.status(400).send();
+    console.log(err);
+  }
+  // console.log(data);
+});
+//Delete Approved Event
+app.post("/api/deleteAprEvent/:id", async (req, res) => {
+  var id = req.params.id;
+  try {
+    await EventA.deleteOne({ _id: id });
+    console.log("called");
+  } catch (err) {
+    res.status(400).send();
+    console.log(err);
+  }
+  // console.log(data);
+});
