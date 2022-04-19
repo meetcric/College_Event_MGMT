@@ -13,7 +13,7 @@ import AdminAllEvents from "./adminAllEvents/adminAllEvents";
 
 function AdminDashboard() {
   return (
-    <Router>
+    <div>
       <Topbar />
       <div className="container">
         <AdminSidebar />
@@ -41,7 +41,7 @@ function AdminDashboard() {
           </Route>
         </Routes>
       </div>
-    </Router>
+    </div>
   );
 }
 

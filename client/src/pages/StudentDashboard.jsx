@@ -1,4 +1,4 @@
-import StudentSidebar from "../components/studentsidebar/StudentSidebar"
+import StudentSidebar from "../components/studentsidebar/StudentSidebar";
 import Topbar from "../components/topbar/Topbar";
 import "./StudentDashboard.css";
 import Home from "./home/Home";
@@ -12,7 +12,7 @@ import NewEvent from "./newEvent/NewEvent";
 
 function EventManagerDashboard() {
   return (
-    <Router>
+    <div>
       <Topbar />
       <div className="container">
         <StudentSidebar />
@@ -40,7 +40,7 @@ function EventManagerDashboard() {
           </Route>
         </Routes>
       </div>
-    </Router>
+    </div>
   );
 }
 

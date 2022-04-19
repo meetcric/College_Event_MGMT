@@ -6,29 +6,37 @@ import SignUp from "./components/signup/SignUp";
 import EventManagerDashboard from "./pages/EventManagerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
+import UserList from "./pages/userList/UserList";
 import { Button } from "@mui/material";
 
 const App = () => {
   function admindash() {
-    <AdminDashboard />
+    <AdminDashboard />;
   }
 
   function EMDashboard() {
-    <EventManagerDashboard />
+    <EventManagerDashboard />;
   }
   return (
     <div>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/SignIn" exact element={<SignIn />} />
           <Route path="/SignUp" exact element={<SignUp />} />
-          <Route path="/Dashboard" exact element={<EventManagerDashboard />} />
-          <Route path="/" exact element={<SignUp />} />
+          <Route
+            path="/EventDashboard/*"
+            exact
+            element={<EventManagerDashboard />}
+          />
+          <Route path="/AdminDashboard/*" exact element={<AdminDashboard />} />
+          <Route
+            path="/StudentDashboard/*"
+            exact
+            element={<StudentDashboard />}
+          />
+          <Route path="/" exact element={<SignIn />} />
         </Routes>
-      </BrowserRouter> */}
-      <EventManagerDashboard />
-      {/* <AdminDashboard /> */}
-      {/* <StudentDashboard /> */}
+      </BrowserRouter>
     </div>
   );
 };

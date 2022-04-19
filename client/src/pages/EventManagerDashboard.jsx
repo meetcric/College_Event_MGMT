@@ -1,5 +1,5 @@
 import Sidebar from "../components/sidebar/Sidebar";
-import EventManagerSidebar from "../components/eventmanagersidebar/EventManagerSidebar"
+import EventManagerSidebar from "../components/eventmanagersidebar/EventManagerSidebar";
 import Topbar from "../components/topbar/Topbar";
 import "./EventManagerDashboard.css";
 import Home from "./home/Home";
@@ -15,7 +15,7 @@ import EMapprovedEvents from "./EMapprovedEvents/EMapprovedEvents";
 
 function EventManagerDashboard() {
   return (
-    <Router>
+    <div>
       <Topbar />
       <div className="container">
         <EventManagerSidebar />
@@ -43,7 +43,7 @@ function EventManagerDashboard() {
           </Route>
         </Routes>
       </div>
-    </Router>
+    </div>
   );
 }
 
