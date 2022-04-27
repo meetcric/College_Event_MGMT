@@ -15,9 +15,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ErrorMessage } from "@hookform/error-message";
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 function Copyright(props) {
   return (
@@ -60,7 +59,7 @@ export default function SignUp() {
     // event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    console.log(data);
+    console.log(control);
 
     const user = JSON.stringify({
       name: firstName + " " + lastName,
