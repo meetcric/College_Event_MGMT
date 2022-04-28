@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@hookform/error-message": "^2.0.0",
+    "react-hook-form": "^7.29.0"
+  }
+}

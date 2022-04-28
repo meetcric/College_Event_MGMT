@@ -16,6 +16,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useForm } from "react-hook-form";
+
 function Copyright(props) {
   return (
     <Typography
@@ -46,19 +48,18 @@ export default function SignUp() {
   const [course, setCourse] = useState("M.Tech");
   let navigate = useNavigate();
 
-  async function handleSubmit(event) {
-    // console.log("Handling Submit");
-    event.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
+
+  async function formSubmit(event) {
+    // event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    console.log(data);
-
-    // console.log(data.get("firstName").toString());
-
-    // setName(data.get("firstName").toString() + data.get("lastName").toString());
-    // // setEmail(data.get("email").toString());
-    // setPassword(data.get("password").toString());
-    // setPhoneNo(data.get("phoneno").toString());
+    console.log(control);
 
     const user = JSON.stringify({
       name: firstName + " " + lastName,
@@ -69,12 +70,10 @@ export default function SignUp() {
       course: course,
     });
 
-    // console.log(name + "\n" + email + "\n" + password + "\n" + phoneno + "\n" + userrole + "\n" + course);
     console.log(user);
 
     const res = await axios.post("http://localhost:8000/api/register", user, {
       headers: {
-        // Overwrite Axios's automatically set Content-Type
         "Content-Type": "application/json",
       },
     });
@@ -84,7 +83,6 @@ export default function SignUp() {
       alert("Duplicate Email");
     }
   }
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -103,13 +101,8 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+          <Box sx={{ mt: 3 }}></Box>
+          <form noValidate onSubmit={handleSubmit(formSubmit)}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -120,8 +113,19 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  {...register("firstName", {
+                    required: true,
+                    pattern: /^[A-Za-z]+$/i,
+                  })}
                   onChange={(e) => setfirstName(e.target.value)}
+                  error={Boolean(errors.firstName)}
                 />
+                {errors?.firstName?.type === "required" && (
+                  <p>This field is required</p>
+                )}
+                {errors?.firstName?.type === "pattern" && (
+                  <p>Alphabetical characters only</p>
+                )}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -131,8 +135,20 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  autoFocus
+                  {...register("lastName", {
+                    required: true,
+                    pattern: /^[A-Za-z]+$/i,
+                  })}
                   onChange={(e) => setlastName(e.target.value)}
+                  error={Boolean(errors.firstName)}
                 />
+                {errors?.lastName?.type === "required" && (
+                  <p>This field is required</p>
+                )}
+                {errors?.lastName?.type === "pattern" && (
+                  <p>Alphabetical characters only</p>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -142,8 +158,20 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  {...register("email", {
+                    required: true,
+                    pattern:
+                      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  })}
                   onChange={(e) => setEmail(e.target.value)}
+                  error={Boolean(errors.email)}
                 />
+                {errors?.email?.type === "required" && (
+                  <p>This field is required</p>
+                )}
+                {errors?.email?.type === "pattern" && (
+                  <p>Enter Valid Email-Id</p>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -154,8 +182,18 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                  })}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                {errors?.password?.type === "required" && (
+                  <p>This field is required</p>
+                )}
+                {errors?.password?.type === "minLength" && (
+                  <p>Password Minimum length should be 6</p>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -166,8 +204,18 @@ export default function SignUp() {
                   type="phoneno"
                   id="phoneno"
                   autoComplete="+91"
+                  {...register("phoneno", {
+                    required: true,
+                    pattern: /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/,
+                  })}
                   onChange={(e) => setPhoneNo(e.target.value)}
                 />
+                {errors?.phoneno?.type === "required" && (
+                  <p>This field is required</p>
+                )}
+                {errors?.phoneno?.type === "pattern" && (
+                  <p>Please enter a Valid Phone Number</p>
+                )}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <InputLabel id="user-role">User Role</InputLabel>
@@ -199,25 +247,25 @@ export default function SignUp() {
                   <MenuItem value="Other">Other</MenuItem>
                 </Select>
               </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/SignIn" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href="/SignIn" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
-          </Box>
+          </form>
+          <Copyright sx={{ mt: 5 }} />
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
