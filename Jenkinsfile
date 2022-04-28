@@ -39,5 +39,11 @@ pipeline{
             }
             }
         }
+        stage('Clean Docker Images') {
+            steps {
+                sh 'docker rmi -f shreyankb/event_management_server'
+                sh 'docker rmi -f shreyankb/event_management_client'
+            }
+        }
     }
 }
