@@ -15,11 +15,9 @@ export default function UserList() {
   });
 
   const handleDelete = (id) => {
+    console.log(id);
     axios.post("http://localhost:8000/api/deleteUser/" + id);
   };
-  // const enableEdit = (id) => {
-  //   console.log(id);
-  // };
 
   const columns = [
     // { field: "_id", headerName: "ID", width: 90 },
