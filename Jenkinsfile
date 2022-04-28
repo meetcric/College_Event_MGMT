@@ -24,10 +24,10 @@ pipeline{
         }
         stage('Docker Build') {
             steps {
-                sh 'cd client && docker build .'
-                // sh 'docker-compose build'
-                // sh 'docker tag college_event_management_server:latest shreyankb/event_management_server:latest'
-                // sh 'docker tag college_event_management_client:latest shreyankb/event_management_client:latest'
+                // sh 'cd client && docker build .'
+                sh 'docker-compose build'
+                sh 'docker tag college_event_management_server:latest shreyankb/event_management_server:latest'
+                sh 'docker tag college_event_management_client:latest shreyankb/event_management_client:latest'
             }
         }
         stage('Docker Push') {
