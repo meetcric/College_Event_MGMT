@@ -50,7 +50,6 @@ export default function SignIn(props) {
       email: email,
       password: password,
     });
-    console.log(user);
 
     const res = await axios.post("http://localhost:8000/api/login", user, {
       headers: {
@@ -63,7 +62,6 @@ export default function SignIn(props) {
       localStorage.setItem("token", res.data.user);
       alert("Login successful");
       var role = jwt_decode(localStorage.getItem("token")).role;
-      console.log(role);
 
       if (role == "Admin") {
         navigate("/AdminDashboard");

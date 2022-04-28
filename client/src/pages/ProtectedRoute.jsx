@@ -4,7 +4,6 @@ import jwt_decode from "jwt-decode";
 const ProtectedRoute = ({ user, children }) => {
   var isUser = localStorage.getItem("token");
   if (!isUser) {
-    console.log("yes");
     return <Navigate to="/" replace />;
   }
 

@@ -1,19 +1,25 @@
-import Sidebar from "../components/sidebar/Sidebar";
 import EventManagerSidebar from "../components/eventmanagersidebar/EventManagerSidebar";
 import Topbar from "../components/topbar/Topbar";
 import "./EventManagerDashboard.css";
-import Home from "./home/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UserList from "./userList/UserList";
 import User from "./user/User";
 import NewUser from "./newUser/NewUser";
-import ProductList from "./productList/ProductList";
 import Product from "./product/Product";
 import NewEvent from "./newEvent/NewEvent";
 import PendingEventList from "./pendingEventList/pendingEventList";
 import EMapprovedEvents from "./EMapprovedEvents/EMapprovedEvents";
-import ProtectedRoute from "./ProtectedRoute";
+import { useEffect } from "react";
+import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+
 function EventManagerDashboard() {
+  let navigate = useNavigate();
+  useEffect(() => {
+    if (jwt_decode(localStorage.getItem("token")).role != "EventManager") {
+      alert("Unauthorized access");
+      navigate("/");
+    }
+  });
   return (
     <div>
       <Topbar />

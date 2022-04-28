@@ -2,15 +2,30 @@ import AdminSidebar from "../components/adminsidebar/AdminSidebar";
 import Topbar from "../components/topbar/Topbar";
 import "./EventManagerDashboard.css";
 import Home from "./home/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import UserList from "./userList/UserList";
 import User from "./user/User";
 import NewUser from "./newUser/NewUser";
 import NewEvent from "./newEvent/NewEvent";
 import AdminPendingEvents from "./adminPendingEvents/adminPendingEvents";
 import AdminAllEvents from "./adminAllEvents/adminAllEvents";
-import ProtectedRoute from "./ProtectedRoute";
+import { useState, useEffect } from "react";
+import jwt_decode from "jwt-decode";
+
 function AdminDashboard() {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (jwt_decode(localStorage.getItem("token")).role != "Admin") {
+      alert("Unauthorized access");
+      navigate("/");
+    }
+  });
   return (
     <div>
       <Topbar />
