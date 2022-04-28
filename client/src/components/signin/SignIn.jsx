@@ -37,7 +37,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(props) {
   let navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -64,6 +64,7 @@ export default function SignIn() {
       alert("Login successful");
       var role = jwt_decode(localStorage.getItem("token")).role;
       console.log(role);
+
       if (role == "Admin") {
         navigate("/AdminDashboard");
       } else if (role == "Student") {
@@ -123,10 +124,7 @@ export default function SignIn() {
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth

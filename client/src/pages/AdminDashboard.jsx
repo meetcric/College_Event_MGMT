@@ -9,7 +9,7 @@ import NewUser from "./newUser/NewUser";
 import NewEvent from "./newEvent/NewEvent";
 import AdminPendingEvents from "./adminPendingEvents/adminPendingEvents";
 import AdminAllEvents from "./adminAllEvents/adminAllEvents";
-
+import ProtectedRoute from "./ProtectedRoute";
 function AdminDashboard() {
   return (
     <div>

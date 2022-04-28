@@ -12,7 +12,7 @@ import Product from "./product/Product";
 import NewEvent from "./newEvent/NewEvent";
 import PendingEventList from "./pendingEventList/pendingEventList";
 import EMapprovedEvents from "./EMapprovedEvents/EMapprovedEvents";
-
+import ProtectedRoute from "./ProtectedRoute";
 function EventManagerDashboard() {
   return (
     <div>

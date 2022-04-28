@@ -3,9 +3,13 @@ import "./topbar.css";
 import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 import jwt_decode from "jwt-decode";
 import UserDetails from "../userdetails/userdetails";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Icon from "@mui/material/Icon";
+import { IconButton } from "@mui/material";
+import { Navigate, useNavigate } from "react-router-dom";
 
-export default function Topbar() { 
-
+export default function Topbar() {
+  let navigate = useNavigate();
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -13,21 +17,18 @@ export default function Topbar() {
           <span className="logo">IIITB Event Management</span>
         </div>
         <div className="topRight">
-          {/* <div className="topbarIconContainer">
-            <NotificationsNone />
-            <span className="topIconBadge">2</span>
-          </div>
           <div className="topbarIconContainer">
-            <Language />
-            <span className="topIconBadge">2</span>
-          </div> */}
-          <div className="topbarIconContainer">
-            <Settings />
+            <IconButton
+              onClick={() => {
+                localStorage.clear();
+                navigate("/");
+              }}
+            >
+              <LogoutIcon></LogoutIcon>
+            </IconButton>
+            {/* <LogoutIcon onClick></LogoutIcon> */}
           </div>
-          {/* <UserDetails /> */}
-          {jwt_decode(localStorage.getItem("token"))["name"]}
-          {/* <span>{user["name"]}</span> */}
-          {/* <img src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="topAvatar" /> */}
+          <div>{jwt_decode(localStorage.getItem("token"))["name"]}</div>
         </div>
       </div>
     </div>
