@@ -14,7 +14,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 function Copyright(props) {
   return (
@@ -49,6 +50,8 @@ export default function SignIn() {
       email: email,
       password: password,
     });
+    console.log(user);
+
     const res = await axios.post("http://localhost:8000/api/login", user, {
       headers: {
         // Overwrite Axios's automatically set Content-Type
@@ -59,7 +62,16 @@ export default function SignIn() {
     if (res.data.status === "ok") {
       localStorage.setItem("token", res.data.user);
       alert("Login successful");
-      navigate("/Dashboard");
+      var role = jwt_decode(localStorage.getItem("token")).role;
+      console.log(role);
+      if (role == "Admin") {
+        navigate("/AdminDashboard");
+      } else if (role == "Student") {
+        navigate("/StudentDashboard");
+      } else {
+        navigate("/EventDashboard");
+        // <Navigate to="/EventDashboard" />
+      }
     } else {
       alert("Invalid Credentials");
     }
