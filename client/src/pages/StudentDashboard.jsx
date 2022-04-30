@@ -12,6 +12,8 @@ import StudentEvents from "./studentEvents/studentEvents";
 import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import StudentParticipatedEvents from "./studentParticipatedEvents/studentParticipatedEvents";
+
 function StudentDashboard() {
   let navigate = useNavigate();
   useEffect(() => {
@@ -27,7 +29,7 @@ function StudentDashboard() {
         <StudentSidebar />
         <Routes>
           <Route exact path="/">
-            <Home />
+          <StudentEvents />
           </Route>
           <Route path="/users">
             <UserList />
@@ -41,8 +43,8 @@ function StudentDashboard() {
           <Route path="/allEvents">
             <StudentEvents />
           </Route>
-          <Route path="/product/:productId">
-            <Product />
+          <Route path="/products">
+            <StudentParticipatedEvents />
           </Route>
           <Route path="/newEvent">
             <NewEvent />

@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(urlencoded({ extended: false }));
 app.use(cors({ origin: true, credentials: true }));
 
-// routes
+// test api
 app.get("/test", (req, res) => {
   res.send({ message: "Test Api is working" });
 });
@@ -87,7 +87,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-//EventManager APIs
+//EventManager APIs : To request event
 app.post("/api/requestEvent", async (req, res) => {
   try {
     console.log(req.body);
@@ -108,6 +108,7 @@ app.post("/api/requestEvent", async (req, res) => {
   }
 });
 
+//EventManager: Unapproved events
 app.get("/api/showPendingEvents/:user", async (req, res) => {
   var data;
   EventR.find({ addedby: req.params.user }, function (err, docs) {
@@ -117,6 +118,7 @@ app.get("/api/showPendingEvents/:user", async (req, res) => {
   });
 });
 
+//Admin: Show all pending events
 app.get("/api/showAllPendingEvents/", async (req, res) => {
   var data;
   EventR.find({}, function (err, docs) {
@@ -126,25 +128,26 @@ app.get("/api/showAllPendingEvents/", async (req, res) => {
   });
 });
 
+//Admin: Approve events
 app.post("/api/approveEvent/:id", async (req, res) => {
-  var id = req.params.id;
+  var id = req.params.id; //EventR ID
   var event_request;
 
   console.log(id);
   event_request = await EventR.findOne({ _id: id });
 
   var p2 = {
-    event_id: id,
+    event_id: id,   //EventR ID
     name: event_request["name"],
   };
 
   try {
     var new_event = new EventA(event_request);
-    new_event._id = mongoose.Types.ObjectId();
+    new_event._id = mongoose.Types.ObjectId(id);
     new_event.isNew = true;
     new_event.save();
 
-    await participation.create(p2);
+    await Participation.create(p2);
     // console.log(typeof(event_request));
     // await EventA.create(event_request);
   } catch (err) {
@@ -161,7 +164,8 @@ app.post("/api/approveEvent/:id", async (req, res) => {
 
   res.status(200).send();
 });
-//Delete pending Event
+
+//Admin: Reject Event [or] Delete pending Event
 app.post("/api/rejectEvent/:id", async (req, res) => {
   var id = req.params.id;
   try {
@@ -173,6 +177,7 @@ app.post("/api/rejectEvent/:id", async (req, res) => {
   res.json({ status: "success" });
 });
 
+//EventManager: EventManager Approved events
 app.get("/api/showAllEMEvents/:user", async (req, res) => {
   var user = req.params.user;
   EventA.find({ addedby: user }, function (err, docs) {
@@ -181,6 +186,7 @@ app.get("/api/showAllEMEvents/:user", async (req, res) => {
   });
 });
 
+//Admin: All approved events
 app.get("/api/allEvents", async (req, res) => {
   EventA.find({}, function (err, docs) {
     // console.log(docs);
@@ -188,6 +194,7 @@ app.get("/api/allEvents", async (req, res) => {
   });
 });
 
+//Admin: All users list
 app.get("/api/allUserList", async (req, res) => {
   User.find({}, function (err, docs) {
     data = docs;
@@ -196,6 +203,7 @@ app.get("/api/allUserList", async (req, res) => {
   });
 });
 
+//Student: Show student events
 app.get("/api/showStudentsEvents/:email", async (req, res) => {
   const user_details = await User.findOne({ email: req.params.email });
   EventA.find(
@@ -209,11 +217,12 @@ app.get("/api/showStudentsEvents/:email", async (req, res) => {
   );
 });
 
+//Student: participate in event
 app.get("/api/participate/:eventid/:email", async (req, res) => {
   try {
     User.findOneAndUpdate(
       { email: req.params.email },
-      { $push: { eventsp: req.params.eventid } },
+      { $addToSet: { eventsp: req.params.eventid } },
       { returnNewDocument: true },
       function (err, result) {
         console.log(result);
@@ -221,7 +230,7 @@ app.get("/api/participate/:eventid/:email", async (req, res) => {
     );
     Participation.findOneAndUpdate(
       { event_id: req.params.eventid },
-      { $push: { participation_details: req.params.email } },
+      { $addToSet: { participation_details: req.params.email } },
       { returnNewDocument: true },
       function (err, result) {
         console.log(req.params.eventid);
@@ -232,6 +241,46 @@ app.get("/api/participate/:eventid/:email", async (req, res) => {
   } catch (err) {
     res.json({ status: "error" });
   }
+});
+
+// function deleteParticipation(emailid, id) {
+
+// }
+
+app.get("/api/showStudentParticipatedEvents/:email", async(req, res) => {
+  (async() => {
+    console.log("Un")
+    var curr_event_id;
+    var events = []
+
+    var docs = await User.findOne({
+      email: req.params.email
+    });
+
+    var eventids = docs.eventsp;
+    console.log(eventids);
+
+    for(var i=0; i<eventids.length; i++) {
+      curr_event_id = eventids[i]
+        var docs2 = await  EventA.findOne({ _id: eventids[i] })
+
+        if(docs2 == null) {
+          console.log(curr_event_id);
+          await User.findOneAndUpdate(
+            {email: req.params.email},
+            {$pull: {eventsp: curr_event_id}}
+          );
+        }
+        else {
+          console.log("pushed");
+          events.push(docs2);
+        }
+    }
+
+    console.log("events");
+    console.log(events);
+    res.send(events);
+  })();
 });
 // port
 const port = process.env.PORT || 8000;
