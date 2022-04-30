@@ -24,7 +24,6 @@ pipeline{
         }
         stage('Docker Build') {
             steps {
-                // sh 'cd client && docker build .'
                 sh 'docker-compose build'
                 sh 'docker tag college_event_management_server:latest shreyankb/event_management_server:latest'
                 sh 'docker tag college_event_management_client:latest shreyankb/event_management_client:latest'
@@ -44,6 +43,11 @@ pipeline{
                 sh 'docker rmi -f shreyankb/event_management_server'
                 sh 'docker rmi -f shreyankb/event_management_client'
             }
+        }
+        stage('Ansible Deploy') {
+             steps {
+                  ansiblePlaybook colorized: true, disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory', playbook: 'deploy.yml'
+             }
         }
     }
 }
