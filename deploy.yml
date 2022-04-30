@@ -1,5 +1,5 @@
 ---
-- name: Deploying Project locally.
+- name: Deploying Project.
   hosts: all
   tasks:
     - name: Pull Frontend image
