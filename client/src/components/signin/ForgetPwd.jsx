@@ -41,52 +41,25 @@ export default function SignIn(props) {
   let navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      var role = jwt_decode(localStorage.getItem("token")).role;
-
-      if (role == "Admin") {
-        navigate("/AdminDashboard");
-      } else if (role == "Student") {
-        navigate("/StudentDashboard");
-      } else {
-        navigate("/EventDashboard");
-      }
-    }
-  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     const user = JSON.stringify({
       email: email,
-      password: password,
     });
-
-    const res = await axios.post("http://localhost:8000/api/login", user, {
-      headers: {
-        // Overwrite Axios's automatically set Content-Type
-        "Content-Type": "application/json",
-      },
-    });
-    // console.log(res.data.user);
-    if (res.data.status === "ok") {
-      localStorage.setItem("token", res.data.user);
-      var role = jwt_decode(localStorage.getItem("token")).role;
-
-      if (role == "Admin") {
-        navigate("/AdminDashboard");
-      } else if (role == "Student") {
-        navigate("/StudentDashboard");
-      } else {
-        navigate("/EventDashboard");
-        // <Navigate to="/EventDashboard" />
+    console.log(user);
+    const res = await axios.post(
+      "http://localhost:8000/api/forgetpassword",
+      user,
+      {
+        headers: {
+          // Overwrite Axios's automatically set Content-Type
+          "Content-Type": "application/json",
+        },
       }
-    } else {
-      alert("Invalid Credentials");
+    );
+    if (res.data.status === "ok") {
+      navigate("/SignIn");
     }
   }
 
@@ -106,7 +79,7 @@ export default function SignIn(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Reset Password
           </Typography>
           <Box
             component="form"
@@ -125,17 +98,6 @@ export default function SignIn(props) {
               autoFocus
               onChange={(e) => setEmail(e.target.value)}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
 
             <Button
               type="submit"
@@ -143,17 +105,12 @@ export default function SignIn(props) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Reset Password
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="ForgetPwd" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="/SignUp" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/SignIn" variant="body2">
+                  {"Remember the Password? Sign In"}
                 </Link>
               </Grid>
             </Grid>

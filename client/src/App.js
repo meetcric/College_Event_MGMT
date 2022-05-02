@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import SignIn from "./components/signin/SignIn";
+import ForgetPwd from "./components/signin/ForgetPwd";
 import SignUp from "./components/signup/SignUp";
 import EventManagerDashboard from "./pages/EventManagerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -19,7 +20,7 @@ const App = () => {
         <Routes>
           <Route path="/SignIn" exact element={<SignIn />} />
           <Route path="/SignUp" exact element={<SignUp />} />
-
+          <Route path="/ForgetPwd" exact element={<ForgetPwd />} />
           <Route
             path="/EventDashboard/*"
             exact

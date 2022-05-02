@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const { json, urlencoded } = express;
 const cors = require("cors");
@@ -9,6 +10,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Participation = require("./models/participation");
 const { rawListeners } = require("./models/user.model");
+const sendEmail = require("./utils/sendEmail");
 // app
 const app = express();
 
@@ -312,4 +314,36 @@ app.post("/api/deleteAprEvent/:id", async (req, res) => {
     console.log(err);
   }
   // console.log(data);
+});
+app.post("/api/forgetpassword", async (req, res) => {
+  try {
+    const user = await User.findOne({
+      email: req.body.email,
+    });
+    if (user) {
+      const strpassword = Math.random().toString(36).substring(2, 8);
+      const newPassword = await bcrypt.hash(strpassword, 10);
+      User.updateOne(
+        { email: req.body.email },
+        { password: newPassword },
+        function (err, result) {
+          if (err) {
+            res.send(err);
+          } else {
+            var subject = "Reset Password";
+            var text =
+              "We received a request to reset your password,your new password is : " +
+              strpassword;
+            sendEmail(req.body.email, subject, text);
+            res.send({ status: "ok" });
+          }
+        }
+      );
+      console.log(user);
+    } else {
+      res.send({ status: "user not present" });
+    }
+  } catch (err) {
+    res.send({ status: "error" });
+  }
 });
