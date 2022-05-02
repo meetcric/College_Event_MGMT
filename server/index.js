@@ -75,7 +75,8 @@ app.post("/api/login", async (req, res) => {
           email: user.email,
           role: user.role,
         },
-        "secret123"
+        "secret123",
+        { expiresIn: "10s" }
       );
 
       return res.json({ status: "ok", user: token });
@@ -137,7 +138,7 @@ app.post("/api/approveEvent/:id", async (req, res) => {
   event_request = await EventR.findOne({ _id: id });
 
   var p2 = {
-    event_id: id,   //EventR ID
+    event_id: id, //EventR ID
     name: event_request["name"],
   };
 
@@ -247,34 +248,33 @@ app.get("/api/participate/:eventid/:email", async (req, res) => {
 
 // }
 
-app.get("/api/showStudentParticipatedEvents/:email", async(req, res) => {
-  (async() => {
-    console.log("Un")
+app.get("/api/showStudentParticipatedEvents/:email", async (req, res) => {
+  (async () => {
+    console.log("Un");
     var curr_event_id;
-    var events = []
+    var events = [];
 
     var docs = await User.findOne({
-      email: req.params.email
+      email: req.params.email,
     });
 
     var eventids = docs.eventsp;
     console.log(eventids);
 
-    for(var i=0; i<eventids.length; i++) {
-      curr_event_id = eventids[i]
-        var docs2 = await  EventA.findOne({ _id: eventids[i] })
+    for (var i = 0; i < eventids.length; i++) {
+      curr_event_id = eventids[i];
+      var docs2 = await EventA.findOne({ _id: eventids[i] });
 
-        if(docs2 == null) {
-          console.log(curr_event_id);
-          await User.findOneAndUpdate(
-            {email: req.params.email},
-            {$pull: {eventsp: curr_event_id}}
-          );
-        }
-        else {
-          console.log("pushed");
-          events.push(docs2);
-        }
+      if (docs2 == null) {
+        console.log(curr_event_id);
+        await User.findOneAndUpdate(
+          { email: req.params.email },
+          { $pull: { eventsp: curr_event_id } }
+        );
+      } else {
+        console.log("pushed");
+        events.push(docs2);
+      }
     }
 
     console.log("events");

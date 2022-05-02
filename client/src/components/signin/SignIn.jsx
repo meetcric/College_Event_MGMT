@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
@@ -43,6 +43,21 @@ export default function SignIn(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      var role = jwt_decode(localStorage.getItem("token")).role;
+
+      if (role == "Admin") {
+        navigate("/AdminDashboard");
+      } else if (role == "Student") {
+        navigate("/StudentDashboard");
+      } else {
+        navigate("/EventDashboard");
+      }
+    }
+  }, []);
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -60,7 +75,6 @@ export default function SignIn(props) {
     // console.log(res.data.user);
     if (res.data.status === "ok") {
       localStorage.setItem("token", res.data.user);
-      alert("Login successful");
       var role = jwt_decode(localStorage.getItem("token")).role;
 
       if (role == "Admin") {
