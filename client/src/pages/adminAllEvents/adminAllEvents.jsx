@@ -1,12 +1,5 @@
 import "./adminAllEvents.css";
 import { DataGrid } from "@material-ui/data-grid";
-import {
-  CollectionsOutlined,
-  ContactSupportOutlined,
-  DeleteOutline,
-} from "@material-ui/icons";
-import { userRows } from "../../dummyData";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";

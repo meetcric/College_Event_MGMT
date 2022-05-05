@@ -17,23 +17,23 @@ import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     // <Typography
+//     //   variant="body2"
+//     //   color="text.secondary"
+//     //   align="center"
+//     //   {...props}
+//     // >
+//     //   {/* {"Copyright © "}
+//     //   <Link color="inherit" href="https://mui.com/">
+//     //     Event Management
+//     //   </Link>{" "}
+//     //   {new Date().getFullYear()}
+//     //   {"."} */}
+//     // </Typography>
+//   );
+// }
 
 const theme = createTheme();
 
@@ -159,7 +159,7 @@ export default function SignIn(props) {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );

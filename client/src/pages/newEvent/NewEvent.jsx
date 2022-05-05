@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { MultiSelect } from "react-multi-select-component";
 import Select from "react-select";
 import "./newEvent.css";
 import { useForm, Controller } from "react-hook-form";

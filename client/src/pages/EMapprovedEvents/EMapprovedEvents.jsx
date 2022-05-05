@@ -1,13 +1,8 @@
 import "./EMapprovedEvents.css";
 import { DataGrid } from "@material-ui/data-grid";
 import {
-  CollectionsOutlined,
-  ContactSupportOutlined,
   DeleteOutline,
-  Http,
 } from "@material-ui/icons";
-import { userRows } from "../../dummyData";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";

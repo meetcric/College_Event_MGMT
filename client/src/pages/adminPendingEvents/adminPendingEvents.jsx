@@ -1,19 +1,12 @@
 import "./adminPendingEvents.css";
 import { DataGrid } from "@material-ui/data-grid";
-import {
-  CollectionsOutlined,
-  ContactSupportOutlined,
-  DeleteOutline,
-} from "@material-ui/icons";
-import { userRows } from "../../dummyData";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function AdminPendingEvents() {
   const [tableData, setTableData] = useState([]);
-  const user = "shreyank"; //change
-  var logs;
+  // const user = "shreyank"; //change
+  // var logs;
 
   function approveEvent(id) {
     console.log(id);

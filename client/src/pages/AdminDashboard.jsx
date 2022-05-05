@@ -1,7 +1,6 @@
 import AdminSidebar from "../components/adminsidebar/AdminSidebar";
 import Topbar from "../components/topbar/Topbar";
 import "./EventManagerDashboard.css";
-import Home from "./home/Home";
 import {
   BrowserRouter as Router,
   Routes,

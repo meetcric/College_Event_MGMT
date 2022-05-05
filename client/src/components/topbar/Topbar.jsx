@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import UserDetails from "../userdetails/userdetails";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Icon from "@mui/material/Icon";
-import { IconButton } from "@mui/material";
+import { IconButton, requirePropFactory } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Topbar() {
@@ -14,7 +14,9 @@ export default function Topbar() {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">IIITB Event Management</span>
+          <span className="logo">
+              IIITB EM
+          </span>
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">

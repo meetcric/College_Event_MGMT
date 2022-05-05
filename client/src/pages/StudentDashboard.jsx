@@ -1,12 +1,10 @@
 import StudentSidebar from "../components/studentsidebar/StudentSidebar";
 import Topbar from "../components/topbar/Topbar";
 import "./StudentDashboard.css";
-import Home from "./home/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./userList/UserList";
 import User from "./user/User";
 import NewUser from "./newUser/NewUser";
-import Product from "./product/Product";
 import NewEvent from "./newEvent/NewEvent";
 import StudentEvents from "./studentEvents/studentEvents";
 import { useEffect } from "react";
@@ -33,12 +31,6 @@ function StudentDashboard() {
           </Route>
           <Route path="/users">
             <UserList />
-          </Route>
-          <Route path="/user/:userId">
-            <User />
-          </Route>
-          <Route path="/newUser">
-            <NewUser />
           </Route>
           <Route path="/allEvents">
             <StudentEvents />
