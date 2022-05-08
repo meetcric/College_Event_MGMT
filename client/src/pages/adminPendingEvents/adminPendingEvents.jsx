@@ -21,7 +21,7 @@ export default function AdminPendingEvents() {
     fetch("http://localhost:8000/api/showAllPendingEvents/")
       .then((data) => data.json())
       .then((data) => setTableData(data));
-  });
+  }, []);
 
   const handleDelete = (id) => {
     // setData(data.filter((item) => item.id !== id));

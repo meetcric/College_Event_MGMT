@@ -16,7 +16,7 @@ export default function PendingEventList() {
     fetch("http://localhost:8000/api/showPendingEvents/" + user)
       .then((data) => data.json())
       .then((data) => setTableData(data));
-  });
+  }, []);
 
   const handleDelete = (id) => {
     console.log(id);

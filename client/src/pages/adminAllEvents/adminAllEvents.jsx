@@ -11,7 +11,7 @@ export default function AdminAllEvents() {
     fetch("http://localhost:8000/api/allEvents/")
       .then((data) => data.json())
       .then((data) => setTableData(data));
-  });
+  }, []);
 
   const deleteEvent = (id) => {
     axios.post("http://localhost:8000/api/deleteAprEvent/" + id);

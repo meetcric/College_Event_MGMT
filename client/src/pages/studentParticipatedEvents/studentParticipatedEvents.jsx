@@ -11,7 +11,7 @@ export default function StudentParticipatedEvents() {
     fetch("http://localhost:8000/api/showStudentParticipatedEvents/" + email)
     .then((data) => data.json())
     .then((data) => setTableData(data));
-  })
+  }, [])
   
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },

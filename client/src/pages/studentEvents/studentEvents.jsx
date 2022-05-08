@@ -12,7 +12,7 @@ export default function StudentEvents() {
     fetch("http://localhost:8000/api/showStudentsEvents/" + email)
     .then((data) => data.json())
     .then((data) => setTableData(data));
-  })
+  }, [])
   
   function participate(id) {
     var res = axios.get("http://localhost:8000/api/participate/" + id + "/" + email);  

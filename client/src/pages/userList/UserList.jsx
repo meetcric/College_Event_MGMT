@@ -11,7 +11,7 @@ export default function UserList() {
     fetch("http://localhost:8000/api/allUserList")
       .then((data) => data.json())
       .then((data) => setTableData(data));
-  });
+  }, []);
 
   const handleDelete = (id) => {
     console.log(id);

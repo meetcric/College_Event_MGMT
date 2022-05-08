@@ -25,6 +25,7 @@ function AdminDashboard() {
       navigate("/");
     }
   });
+  
   return (
     <div>
       <Topbar />

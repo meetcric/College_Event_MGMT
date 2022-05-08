@@ -16,7 +16,7 @@ export default function EMapprovedEvents() {
     fetch("http://localhost:8000/api/showAllEMEvents/" + user)
       .then((data) => data.json())
       .then((data) => setTableData(data));
-  });
+  }, []);
 
   const handleDelete = (id) => {
     console.log(id);
