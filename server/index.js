@@ -1,3 +1,4 @@
+const logger = require('./logger');
 require("dotenv").config();
 const express = require("express");
 const { json, urlencoded } = express;
@@ -22,22 +23,26 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("DB CONNECTED"))
-  .catch((err) => console.log("DB CONNECTION ERROR", err));
+  .then(() => logger.info("[" + date.toGMTString() + "] " + "DB CONNECTED"))
+  .catch((err) => logger.error("[" + date.toGMTString() + "] " + "DB CONNECTION ERROR", err));
 
 // middleware
 app.use(express.json());
 app.use(urlencoded({ extended: false }));
 app.use(cors({ origin: true, credentials: true }));
 
+var date = new Date();
+
 // test api
 app.get("/test", (req, res) => {
+  logger.info("[" + date.toGMTString() + "]" + " [/test] called");
   res.send({ message: "Test Api is working" });
+  logger.info("[" + date.toGMTString() + "] " + "[/test] successfull");
 });
 
 //SignUP API
 app.post("/api/register", async (req, res) => {
-  // console.log(req.body);
+  logger.info("[" + date.toGMTString() + "] " + "[/api/register] called");
 
   try {
     const newPassword = await bcrypt.hash(req.body.password, 10);
@@ -49,19 +54,23 @@ app.post("/api/register", async (req, res) => {
       role: req.body.role,
       course: req.body.course,
     });
+    logger.info("[" + date.toGMTString() + "] " + "[/api/register] successful");
     res.json({ status: "ok" });
   } catch (err) {
-    console.log(err);
+    logger.error("[" + date.toGMTString() + "] " +"[/api/register]" + err);
     res.json({ status: "error", error: "Duplicate Email" });
   }
 });
 
 //Login API
 app.post("/api/login", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/login] called");
+
   try {
     const user = await User.findOne({
       email: req.body.email,
     });
+
     if (!user) {
       return res.json({ error: "Email not valid" });
     }
@@ -69,7 +78,7 @@ app.post("/api/login", async (req, res) => {
       req.body.password,
       user.password
     );
-    console.log(req.body.email + "\n" + req.body.password);
+
     if (isPasswordValid) {
       const token = jwt.sign(
         {
@@ -80,18 +89,21 @@ app.post("/api/login", async (req, res) => {
         "secret123",
         { expiresIn: "10s" }
       );
-
+      logger.info("[" + date.toGMTString() + "] " + "[/api/login] successful");  
       return res.json({ status: "ok", user: token });
     } else {
+      logger.info("[" + date.toGMTString() + "] " + "[/api/login] successful");
       return res.json({ error: "Invalid User Credentials", status: "404" });
     }
   } catch (err) {
-    console.log(err);
+    logger.error("[" + date.toGMTString() + "] " + "[/api/login]" + err);
   }
 });
 
 //EventManager APIs : To request event
 app.post("/api/requestEvent", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/requestEvent] called");
+
   try {
     console.log(req.body);
     await EventR.create({
@@ -104,39 +116,45 @@ app.post("/api/requestEvent", async (req, res) => {
       otherinfo: req.body.otherInfo,
       addedby: req.body.addedby,
     });
+    logger.info("[" + date.toGMTString() + "] " + "[/api/requestEvent] successful");
     res.json({ status: "ok" });
   } catch (err) {
-    console.log(err);
+    logger.error("[" + date.toGMTString() + "] " + "[/api/requestEvent] " + err);
     res.json({ status: "error" });
   }
 });
 
 //EventManager: Unapproved events
 app.get("/api/showPendingEvents/:user", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/requestEvent] called");
+
   var data;
   EventR.find({ addedby: req.params.user }, function (err, docs) {
     data = docs;
-    // console.log(typeof(docs));
+    logger.info("[" + date.toGMTString() + "] " + "[/api/requestEvent] successful");
     res.json(docs);
   });
 });
 
 //Admin: Show all pending events
 app.get("/api/showAllPendingEvents/", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/showAllPendingEvents] called");
+
   var data;
   EventR.find({}, function (err, docs) {
     data = docs;
-    // console.log(typeof(docs));
+    logger.info("[" + date.toGMTString() + "] " + "[/api/showAllPendingEvents] successful");
     res.json(docs);
   });
 });
 
 //Admin: Approve events
 app.post("/api/approveEvent/:id", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/approveEvent] called");
+
   var id = req.params.id; //EventR ID
   var event_request;
 
-  console.log(id);
   event_request = await EventR.findOne({ _id: id });
 
   var p2 = {
@@ -151,11 +169,11 @@ app.post("/api/approveEvent/:id", async (req, res) => {
     new_event.save();
 
     await Participation.create(p2);
-    // console.log(typeof(event_request));
-    // await EventA.create(event_request);
+    logger.info("[" + date.toGMTString() + "] " + "[/api/approveEvent] successful");
+
   } catch (err) {
+    logger.error("[" + date.toGMTString() + "] " +  "[/api/approveEvent] " +  err);
     res.status(400).send();
-    console.log(err);
   }
 
   try {
@@ -170,6 +188,8 @@ app.post("/api/approveEvent/:id", async (req, res) => {
 
 //Admin: Reject Event [or] Delete pending Event
 app.post("/api/rejectEvent/:id", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/rejectEvent] called");
+
   var id = req.params.id;
   try {
     await EventR.deleteOne({ _id: id });
@@ -177,37 +197,47 @@ app.post("/api/rejectEvent/:id", async (req, res) => {
     res.status(400).send();
     console.log(err);
   }
+
+  logger.info("[" + date.toGMTString() + "] " + "[/api/rejectEvent] successfull");
   res.json({ status: "success" });
 });
 
 //EventManager: EventManager Approved events
 app.get("/api/showAllEMEvents/:user", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " +  "[/api/showAllEMEvents] called");
+
   var user = req.params.user;
   EventA.find({ addedby: user }, function (err, docs) {
-    // console.log(docs);
+    logger.info("[" + date.toGMTString() + "] " + "[/api/showAllEMEvents] successfull");
     res.json(docs);
   });
 });
 
 //Admin: All approved events
 app.get("/api/allEvents", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/allEvents] called");
+
   EventA.find({}, function (err, docs) {
-    // console.log(docs);
+    logger.info("[" + date.toGMTString() + "] " + "[/api/allEvents] successfull");
     res.json(docs);
   });
 });
 
 //Admin: All users list
 app.get("/api/allUserList", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/allUserList] called");
+
   User.find({}, function (err, docs) {
     data = docs;
-    // console.log(typeof(docs));
+    logger.info("[" + date.toGMTString() + "] " + "[/api/allUserList] successfull");
     res.json(docs);
   });
 });
 
 //Student: Show student events
 app.get("/api/showStudentsEvents/:email", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/showStudentsEvents] called");
+
   const user_details = await User.findOne({ email: req.params.email });
   EventA.find(
     {
@@ -218,10 +248,14 @@ app.get("/api/showStudentsEvents/:email", async (req, res) => {
       res.json(docs);
     }
   );
+  logger.info("[" + date.toGMTString() + "] " + "[/api/showStudentsEvents] successfull");
+
 });
 
 //Student: participate in event
 app.get("/api/participate/:eventid/:email", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/participate] called");
+
   try {
     User.findOneAndUpdate(
       { email: req.params.email },
@@ -240,17 +274,17 @@ app.get("/api/participate/:eventid/:email", async (req, res) => {
         console.log(result);
       }
     );
+    logger.info("[" + date.toGMTString() + "] " + "[/api/participate] successfull");
     res.json({ status: "ok" });
   } catch (err) {
+    logger.info("[" + date.toGMTString() + "] " + "[/api/participate] error");
     res.json({ status: "error" });
   }
 });
 
-// function deleteParticipation(emailid, id) {
-
-// }
-
 app.get("/api/showStudentParticipatedEvents/:email", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/showStudentParticipatedEvents] called");
+
   (async () => {
     console.log("Un");
     var curr_event_id;
@@ -279,43 +313,41 @@ app.get("/api/showStudentParticipatedEvents/:email", async (req, res) => {
       }
     }
 
-    console.log("events");
-    console.log(events);
+    logger.info("[" + date.toGMTString() + "] " + "[/api/showStudentParticipatedEvents] successfull");
     res.send(events);
   })();
 });
-// port
-const port = process.env.PORT || 8000;
-
-// listener
-const server = app.listen(port, () =>
-  console.log(`Server is running on port ${port}`)
-);
 
 //DeleteUserByid
 app.post("/api/deleteUser/:id", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/deleteUser] called");
+
   var id = req.params.id;
   try {
     await User.deleteOne({ _id: id });
   } catch (err) {
     res.status(400).send();
-    console.log(err);
+    logger.info("[" + date.toGMTString() + "] " + "[/api/deleteUser] " + err);
   }
-  // console.log(data);
 });
+
 //Delete Approved Event
 app.post("/api/deleteAprEvent/:id", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/deleteAprEvent] called");
+
   var id = req.params.id;
   try {
     await EventA.deleteOne({ _id: id });
     console.log("called");
   } catch (err) {
+    logger.error("[" + date.toGMTString() + "] " + "[/api/deleteAprEvent] " + err);
     res.status(400).send();
-    console.log(err);
   }
-  // console.log(data);
 });
+
 app.post("/api/forgetpassword", async (req, res) => {
+  logger.info("[" + date.toGMTString() + "] " + "[/api/forgetpassword] called");
+
   try {
     const user = await User.findOne({
       email: req.body.email,
@@ -339,11 +371,20 @@ app.post("/api/forgetpassword", async (req, res) => {
           }
         }
       );
-      console.log(user);
+      logger.info("[" + date.toGMTString() + "] " + "[/api/forgetpassword] successfull");
     } else {
       res.send({ status: "user not present" });
     }
   } catch (err) {
+    logger.error("[" + date.toGMTString() + "] " + "[/api/forgetpassword] error");
     res.send({ status: "error" });
   }
 });
+
+// port
+const port = process.env.PORT || 8000;
+
+// listener
+const server = app.listen(port, () =>
+  logger.info("[" + date.toGMTString() + "] " + `Server is running on port ${port}`)
+);

@@ -3,6 +3,7 @@ import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
 export default function UserList() {
   const [tableData, setTableData] = useState([]);
 
