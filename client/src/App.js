@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
 import SignIn from "./components/signin/SignIn";
 import ForgetPwd from "./components/signin/ForgetPwd";
 import SignUp from "./components/signup/SignUp";
 import EventManagerDashboard from "./pages/EventManagerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
-import UserList from "./pages/userList/UserList";
-import { Button } from "@mui/material";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import jwt_decode from "jwt-decode";
+import LogRocket from 'logrocket';
+
+LogRocket.init('mbixkx/college_event_mgmt');
 
 const App = () => {
   return (
