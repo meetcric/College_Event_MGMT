@@ -92,3 +92,32 @@
 {"level":"info","message":"[Sun, 08 May 2022 13:21:04 GMT] [/api/showStudentsEvents] successfull","service":"user-service"}
 {"level":"info","message":"[Sun, 08 May 2022 13:21:04 GMT] [/api/showStudentParticipatedEvents] called","service":"user-service"}
 {"level":"info","message":"[Sun, 08 May 2022 13:21:04 GMT] [/api/showStudentParticipatedEvents] successfull","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:01:05 GMT] Server is running on port 8000","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:01:05 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:01:09 GMT] Server is running on port 8000","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:01:09 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:07:05 GMT] Server is running on port 8000","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:07:05 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:07:33 GMT] Server is running on port 8000","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:07:33 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:07:36 GMT] Server is running on port 8000","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:07:36 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:08:40 GMT] Server is running on port 8000","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:08:40 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:08:50 GMT] Server is running on port 8000","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:08:50 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/showStudentsEvents] called","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/showStudentsEvents] successfull","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/login] successful","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/showStudentsEvents] called","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/showStudentsEvents] successfull","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/login] successful","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/login] successful","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/allUserList] called","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:10:46 GMT] [/api/allUserList] successfull","service":"user-service"}
+{"level":"info","message":"[Sun, 08 May 2022 14:12:09 GMT] DB CONNECTED","service":"user-service"}
