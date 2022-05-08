@@ -15,7 +15,7 @@ pipeline{
         stage('Test') {
             steps {
                 sh 'echo "ok, tested!!"'
-                sh 'cd server && python test.py'
+                sh 'cd server && python3 test.py'
             }
         }
         stage('Build') {
