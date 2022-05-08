@@ -83,7 +83,7 @@ app.post("/api/login", async (req, res) => {
 
       return res.json({ status: "ok", user: token });
     } else {
-      return res.json({ error: "Invalid User Credentials" });
+      return res.json({ error: "Invalid User Credentials", status: "404" });
     }
   } catch (err) {
     console.log(err);
