@@ -1199,3 +1199,46 @@
 {"level":"info","message":"[Mon, 09 May 2022 09:11:53 GMT] [/api/login] called","service":"user-service"}
 {"level":"info","message":"[Mon, 09 May 2022 09:11:53 GMT] [/api/login] successful","service":"user-service"}
 {"level":"error","message":"[Mon, 09 May 2022 09:11:53 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/allUserList] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/allUserList] successfull","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/allEvents] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/allEvents] successfull","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/login] successful","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/login] successful","service":"user-service"}
+{"level":"error","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:22 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/allUserList] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:25 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/allUserList] successfull","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/allEvents] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/allEvents] successfull","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/login] successful","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/login] successful","service":"user-service"}
+{"level":"error","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/allUserList] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:45 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/allUserList] successfull","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/allEvents] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/allEvents] successfull","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/login] successful","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/login] successful","service":"user-service"}
+{"level":"error","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:06 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/allUserList] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:08 GMT] DB CONNECTED","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/allUserList] successfull","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/allEvents] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/allEvents] successfull","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/login] successful","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/login] called","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/login] successful","service":"user-service"}
+{"level":"error","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}

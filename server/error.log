@@ -4,3 +4,7 @@
 {"level":"error","message":"[Mon, 09 May 2022 09:11:27 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
 {"level":"error","message":"[Mon, 09 May 2022 09:11:41 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
 {"level":"error","message":"[Mon, 09 May 2022 09:11:53 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
+{"level":"error","message":"[Mon, 09 May 2022 09:33:14 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
+{"level":"error","message":"[Mon, 09 May 2022 09:33:25 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
+{"level":"error","message":"[Mon, 09 May 2022 09:33:45 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
+{"level":"error","message":"[Mon, 09 May 2022 09:34:08 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
