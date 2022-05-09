@@ -7,13 +7,21 @@ services:
     build: ./server/
     ports:
       - "8000:8000"
+    networks:
+      - mearn_app
 
   client:
     container_name: client
-    stdin_open: true
+    stdin_open: true    
     restart: always
     build: ./client
     ports:
       - "3000:80"
     depends_on:
       - server
+    networks:
+      - mearn_app
+      
+networks:
+  mearn_app:
+    driver: bridge
