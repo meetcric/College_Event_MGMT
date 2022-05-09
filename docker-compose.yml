@@ -3,7 +3,6 @@ services:
   server:
     container_name: server
     stdin_open: true
-    restart: no
     build: ./server/
     ports:
       - "8000:8000"
@@ -13,7 +12,6 @@ services:
   client:
     container_name: client
     stdin_open: true    
-    restart: no
     build: ./client
     ports:
       - "3000:80"
