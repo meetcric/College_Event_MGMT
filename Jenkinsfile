@@ -14,7 +14,7 @@ pipeline{
         }
         stage('Test') {
             steps {
-                sh 'cd ./server/ && python3 test.py'
+                sh 'cd ./server/'
             }
         }
         stage('Build') {
