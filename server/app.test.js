@@ -30,7 +30,7 @@ describe("POST /login", function () {
   it("Succesfull login should return 200", function (done) {
     supertest(app)
       .post("/api/login")
-      .send({ email: "meet@gmail.com", password: "123456" })
+      .send({ email: "mp32445@gmail.com", password: "123456" })
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(200)
@@ -44,7 +44,7 @@ describe("POST /login", function () {
   it("Invalid login should return 300", function (done) {
     supertest(app)
       .post("/api/login")
-      .send({ email: "meet@gmail.com", password: "1234567" })
+      .send({ email: "mp32445@gmail.com", password: "1234567" })
       .set("Accept", "application/json")
       .expect({ error: "Invalid User Credentials", status: "404" })
       .end(function (err, res) {

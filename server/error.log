@@ -16,3 +16,4 @@
 {"level":"error","message":"[Mon, 09 May 2022 10:09:49 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
 {"level":"error","message":"[Mon, 09 May 2022 10:09:49 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
 {"level":"error","message":"[Mon, 09 May 2022 10:10:33 GMT] [/api/login]Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client","service":"user-service"}
+{"level":"error","message":"[Mon, 09 May 2022 10:28:31 GMT] [/api/register]MongoServerError: E11000 duplicate key error collection: project.user-data index: email_1 dup key: { email: \"meet@gmail.com\" }","service":"user-service"}
