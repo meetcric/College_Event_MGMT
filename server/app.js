@@ -94,6 +94,7 @@ app.post("/api/login", async (req, res) => {
       logger.info("[" + date.toGMTString() + "] " + "[/api/login] successful");
       return res.json({ status: "ok", user: token });
     } else {
+      res.status(404).send();
       logger.info("[" + date.toGMTString() + "] " + "[/api/login] successful");
       return res.json({ error: "Invalid User Credentials", status: "404" });
     }
