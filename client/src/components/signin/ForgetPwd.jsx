@@ -39,6 +39,7 @@ export default function SignIn(props) {
         },
       }
     );
+    console.log(res.data.status);
     if (res.data.status === "ok") {
       toast.success("Reset email sent ", {
         position: "top-right",
@@ -50,6 +51,16 @@ export default function SignIn(props) {
         progress: undefined,
       });
       navigate("/SignIn");
+    } else {
+      toast.error("User not present ", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
 

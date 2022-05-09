@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest --verbose --coverage --forceExit --watchAll --runInBand",
-    "dev": "nodemon index.js"
+    "dev": "nodemon server.js"
   },
   "jest": {
     "testEnvironment": "node",
@@ -26,6 +26,8 @@
     "winston": "^3.7.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.3"
   }
 }

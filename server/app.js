@@ -426,13 +426,4 @@ app.post("/api/forgetpassword", async (req, res) => {
   }
 });
 
-// port
-const port = process.env.PORT || 8000;
-
-// listener
-const server = app.listen(port, () =>
-  logger.info(
-    "[" + date.toGMTString() + "] " + `Server is running on port ${port}`
-  )
-);
 module.exports = app;
