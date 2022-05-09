@@ -14,7 +14,7 @@ pipeline{
         }
         stage('Test') {
             steps {
-                sh 'cd ./server/'
+                sh 'cd ./server/ && npm test'
             }
         }
         stage('Build') {
@@ -24,8 +24,6 @@ pipeline{
         }
         stage('Docker Build') {
             steps {
-                // delete if image already exists
-                // sh 'docker rm college_event_management_server college_event_management_server'
                 sh 'docker-compose build'
                 sh 'docker tag event-management_server:latest shreyankb/event_management_server:latest'
                 sh 'docker tag event-management_client:latest shreyankb/event_management_client:latest'
