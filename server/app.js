@@ -435,3 +435,4 @@ const server = app.listen(port, () =>
     "[" + date.toGMTString() + "] " + `Server is running on port ${port}`
   )
 );
+module.exports = app;

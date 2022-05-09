@@ -14,7 +14,7 @@ pipeline{
         }
         stage('Test') {
             steps {
-                sh 'echo "ok, tested!!"'
+                sh 'cd ./server/'
             }
         }
         stage('Build') {
