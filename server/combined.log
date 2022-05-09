@@ -850,3 +850,5 @@
 {"level":"info","message":"[Mon, 09 May 2022 06:35:57 GMT] [/api/showAllEMEvents] successfull","service":"user-service"}
 {"level":"info","message":"[Mon, 09 May 2022 06:35:57 GMT] [/api/allEvents] called","service":"user-service"}
 {"level":"info","message":"[Mon, 09 May 2022 06:35:57 GMT] [/api/allEvents] successfull","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 07:09:53 GMT] Server is running on port 8000","service":"user-service"}
+{"level":"info","message":"[Mon, 09 May 2022 07:09:53 GMT] DB CONNECTED","service":"user-service"}
