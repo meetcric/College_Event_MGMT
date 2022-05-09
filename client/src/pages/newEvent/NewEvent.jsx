@@ -4,6 +4,8 @@ import jwt_decode from "jwt-decode";
 import Select from "react-select";
 import "./newEvent.css";
 import { useForm, Controller } from "react-hook-form";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function NewEvent() {
   const user = jwt_decode(localStorage.getItem("token"))["name"];
@@ -60,7 +62,15 @@ export default function NewEvent() {
       }
     );
     if (res.data.status === "ok") {
-      alert("Added");
+      toast.success("Event Added Succesfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } else if (res.data.status === "error") {
       alert("error");
     }

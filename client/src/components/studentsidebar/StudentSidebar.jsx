@@ -47,7 +47,7 @@ export default function StudentSidebar() {
                 All Events
               </li>
             </Link>
-            <Link to="/StudentDashboard/products" className="link">
+            <Link to="/StudentDashboard/partEvents" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
                 Events participated

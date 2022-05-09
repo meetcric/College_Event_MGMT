@@ -2,19 +2,44 @@ import "./adminPendingEvents.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminPendingEvents() {
   const [tableData, setTableData] = useState([]);
   // const user = "shreyank"; //change
   // var logs;
 
-  function approveEvent(id) {
-    console.log(id);
-    axios.post("http://localhost:8000/api/approveEvent/" + id);
+  async function approveEvent(id) {
+    await axios.post("http://localhost:8000/api/approveEvent/" + id);
+    toast.success("Event Approved Succesfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    fetch("http://localhost:8000/api/showAllPendingEvents/")
+      .then((data) => data.json())
+      .then((data) => setTableData(data));
   }
 
-  function rejectEvent(id) {
-    axios.post("http://localhost:8000/api/rejectEvent/" + id);
+  async function rejectEvent(id) {
+    await axios.post("http://localhost:8000/api/rejectEvent/" + id);
+    toast.success("Event Rejected Succesfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    fetch("http://localhost:8000/api/showAllPendingEvents/")
+      .then((data) => data.json())
+      .then((data) => setTableData(data));
   }
 
   useEffect(() => {

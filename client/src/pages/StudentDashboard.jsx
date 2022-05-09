@@ -27,7 +27,7 @@ function StudentDashboard() {
         <StudentSidebar />
         <Routes>
           <Route exact path="/">
-          <StudentEvents />
+            <StudentEvents />
           </Route>
           <Route path="/users">
             <UserList />
@@ -35,7 +35,7 @@ function StudentDashboard() {
           <Route path="/allEvents">
             <StudentEvents />
           </Route>
-          <Route path="/products">
+          <Route path="/partEvents">
             <StudentParticipatedEvents />
           </Route>
           <Route path="/newEvent">

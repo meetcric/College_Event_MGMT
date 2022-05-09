@@ -3,6 +3,8 @@ import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function UserList() {
   const [tableData, setTableData] = useState([]);
@@ -12,19 +14,25 @@ export default function UserList() {
       .then((data) => data.json())
       .then((data) => setTableData(data));
   }, []);
-
-  const handleDelete = (id) => {
-    console.log(id);
+  function deleteUser(id) {
     axios.post("http://localhost:8000/api/deleteUser/" + id);
-  };
-
+  }
+  async function handleDelete(id) {
+    const result = await deleteUser(id);
+    toast.success("User Deleted Succesfull!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    fetch("http://localhost:8000/api/allUserList")
+      .then((data) => data.json())
+      .then((data) => setTableData(data));
+  }
   const columns = [
-    // { field: "_id", headerName: "ID", width: 90 },
-    // {
-    //   field: "name",
-    //   headerName: "Name",
-    //   width: 200,
-    // },
     { field: "email", headerName: "Email", width: 200, editable: true },
     {
       field: "phoneno",

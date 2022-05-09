@@ -15,25 +15,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme();
 
@@ -47,18 +30,25 @@ export default function SignIn(props) {
     const user = JSON.stringify({
       email: email,
     });
-    console.log(user);
     const res = await axios.post(
       "http://localhost:8000/api/forgetpassword",
       user,
       {
         headers: {
-          // Overwrite Axios's automatically set Content-Type
           "Content-Type": "application/json",
         },
       }
     );
     if (res.data.status === "ok") {
+      toast.success("Reset email sent ", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       navigate("/SignIn");
     }
   }
@@ -116,7 +106,6 @@ export default function SignIn(props) {
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );

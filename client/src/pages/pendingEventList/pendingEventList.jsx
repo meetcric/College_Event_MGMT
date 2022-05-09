@@ -1,8 +1,6 @@
 import "./pendingEventList.css";
 import { DataGrid } from "@material-ui/data-grid";
-import {
-  DeleteOutline,
-} from "@material-ui/icons";
+import { DeleteOutline } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -19,8 +17,14 @@ export default function PendingEventList() {
   }, []);
 
   const handleDelete = (id) => {
-    console.log(id);
     const res = axios.post("http://localhost:8000/api/rejectEvent/" + id);
+    res.then((value) => {
+      fetch("http://localhost:8000/api/showPendingEvents/" + user)
+        .then((data) => data.json())
+        .then((data) => setTableData(data));
+      console.log(value);
+    });
+    // console.log(res["status"]);
   };
 
   const columns = [

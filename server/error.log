@@ -1,0 +1,1 @@
+{"level":"error","message":"[Sun, 08 May 2022 12:04:45 GMT] [/api/register]MongoServerError: E11000 duplicate key error collection: project.user-data index: email_1 dup key: { email: \"smruti@gmail.com\" }","service":"user-service"}

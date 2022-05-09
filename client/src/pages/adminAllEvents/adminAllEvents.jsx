@@ -13,9 +13,18 @@ export default function AdminAllEvents() {
       .then((data) => setTableData(data));
   }, []);
 
-  const deleteEvent = (id) => {
+  function deleteIt(id) {
     axios.post("http://localhost:8000/api/deleteAprEvent/" + id);
-  };
+  }
+
+  async function deleteEvent(id) {
+    console.log("hello");
+    const result = await deleteIt(id);
+    console.log("bye");
+    fetch("http://localhost:8000/api/allEvents/")
+      .then((data) => data.json())
+      .then((data) => setTableData(data));
+  }
 
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
@@ -59,9 +68,7 @@ export default function AdminAllEvents() {
         return (
           <>
             <Button
-              color="error"
-              className="userListEdit"
-              variant="outlined"
+              variant="secondary"
               color="error"
               onClick={() => deleteEvent(params.row._id)}
             >

@@ -1,8 +1,6 @@
 import "./EMapprovedEvents.css";
 import { DataGrid } from "@material-ui/data-grid";
-import {
-  DeleteOutline,
-} from "@material-ui/icons";
+import { DeleteOutline } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -19,8 +17,10 @@ export default function EMapprovedEvents() {
   }, []);
 
   const handleDelete = (id) => {
-    console.log(id);
     axios.post("http://localhost:8000/api/deleteAprEvent/" + id);
+    fetch("http://localhost:8000/api/showAllEMEvents/" + user)
+      .then((data) => data.json())
+      .then((data) => setTableData(data));
   };
 
   const columns = [

@@ -16,25 +16,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const theme = createTheme();
 
 export default function SignUp() {
@@ -58,8 +41,6 @@ export default function SignUp() {
     // event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    console.log(control);
-
     const user = JSON.stringify({
       name: firstName + " " + lastName,
       email: email,
@@ -69,17 +50,34 @@ export default function SignUp() {
       course: course,
     });
 
-    console.log(user);
-
     const res = await axios.post("http://localhost:8000/api/register", user, {
       headers: {
         "Content-Type": "application/json",
       },
     });
     if (res.data.status === "ok") {
+      toast.success("User Created", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
       navigate("/SignIn");
     } else if (res.data.status === "error") {
-      alert("Duplicate Email");
+      toast.error("Duplicate Email", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      // alert("Duplicate Email");
     }
   }
   return (

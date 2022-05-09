@@ -16,7 +16,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // function Copyright(props) {
 //   return (
 //     // <Typography
@@ -77,6 +78,16 @@ export default function SignIn(props) {
       localStorage.setItem("token", res.data.user);
       var role = jwt_decode(localStorage.getItem("token")).role;
 
+      toast.success("Login Succesfull!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
       if (role == "Admin") {
         navigate("/AdminDashboard");
       } else if (role == "Student") {
@@ -86,7 +97,15 @@ export default function SignIn(props) {
         // <Navigate to="/EventDashboard" />
       }
     } else {
-      alert("Invalid Credentials");
+      toast.error("Invalid Credentials", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
 
