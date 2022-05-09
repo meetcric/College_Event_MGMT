@@ -3,4 +3,4 @@ WORKDIR /server
 COPY package.json /server
 RUN npm i
 COPY . /server
-CMD ["node", "index.js"]
+CMD ["node", "server.js"]
