@@ -41,13 +41,14 @@ describe("POST /login", function () {
   });
 });
 describe("POST /login", function () {
-  it("Invalid login should return 404", function (done) {
+  it("Invalid login should return 300", function (done) {
     supertest(app)
       .post("/api/login")
       .send({ email: "meet@gmail.com", password: "1234567" })
       .set("Accept", "application/json")
-      .expect(404)
+      .expect({ error: "Invalid User Credentials", status: "404" })
       .end(function (err, res) {
+        console.log(done);
         if (err) return done(err);
         return done();
       });
