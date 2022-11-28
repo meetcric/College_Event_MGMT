@@ -1,0 +1,25 @@
+version: '3.0'
+services:
+  server:
+    container_name: server
+    stdin_open: true
+    build: ./server/
+    ports:
+      - "8000:8000"
+    networks:
+      - mearn_app
+
+  client:
+    container_name: client
+    stdin_open: true    
+    build: ./client
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+    networks:
+      - mearn_app
+      
+networks:
+  mearn_app:
+    driver: bridge

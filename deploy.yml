@@ -1,0 +1,12 @@
+---
+- name: Deploying Project.
+  hosts: all
+  tasks:
+    - name: Pull Frontend image
+      docker_image:
+        name: shreyankb/event_management_client
+        source: pull
+    - name: Pull Backend image
+      docker_image:
+          name: shreyankb/event_management_server
+          source: pull
